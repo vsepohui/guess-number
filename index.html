@@ -22,35 +22,41 @@
 	    $(function() {
 			$('#guess').click(function() {
 				val = $('#number').val();
-				val = val % 14;
-		//		alert(val);
-				$.ajax('book.html').done(function(book) {				
-					$('#result').html(book);
-					const re = new RegExp("\\[ Гексаграмма "+(val));
-					var d = '';
-					 	var p = $('#result span').filter(function(){ 
-							return re.test($(this).text());
-						}).parent();
-						d += p.html();
-						//	alert(d);
-					 	while(1) {
+				
+				const ren = /^[0-9]+$/;
+				if (ren.test(val)) {
+					val = val % 14;
+			//		alert(val);
+					$.ajax('book.html').done(function(book) {				
+						$('#result').html(book);
+						const re = new RegExp("\\[ Гексаграмма "+(val));
+						var d = '';
+							var p = $('#result span').filter(function(){ 
+								return re.test($(this).text());
+							}).parent();
+							d += p.html();
+							//	alert(d);
+							while(1) {
+								
+								p = p.next();
+								//alert(p.html());
+								if(!p.html()) {
+									//alert('hoo');
+									break;
+								}
+								const re2 = new RegExp("\\[ Гексаграмма "+(val + 1));
+								if( p.filter(function() { return re2.test($(this).text()) }).text()) {
+									//alert('foo');
+									break;
+								}
+								d += p.html()+'<br/>';
+							}
 							
-							p = p.next();
-							//alert(p.html());
-							if(!p.html()) {
-								//alert('hoo');
-								break;
-							}
-							const re2 = new RegExp("\\[ Гексаграмма "+(val + 1));
-							if( p.filter(function() { return re2.test($(this).text()) }).text()) {
-								//alert('foo');
-								break;
-							}
-							d += p.html()+'<br/>';
-						}
-						
-						$('#result').html(d);
-				});
+							$('#result').html(d);
+					});
+				} else {
+					alert('Вы ввели не число!');
+				}
 			});
 		});
     </script>
