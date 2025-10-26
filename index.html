@@ -22,8 +22,8 @@
 	    $(function() {
 			$('#guess').click(function() {
 				val = $('#number').val();
-				val = val % 13;
-				//alert(val);
+				val = val % 14;
+		//		alert(val);
 				$.ajax('book.html').done(function(book) {				
 					$('#result').html(book);
 					const re = new RegExp("\\[ Гексаграмма "+(val));
