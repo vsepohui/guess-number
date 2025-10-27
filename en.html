@@ -30,7 +30,7 @@
 						$('#result').html(book);
 						const re = new RegExp("\\[\s*Hexagram "+(val));
 						var d = '';
-							var p = $('#result span').filter(function(){ 
+							var p = $('#result span font font').filter(function(){ 
 								return re.test($(this).text());
 							}).parent();
 							d += p.html();
