@@ -22,31 +22,24 @@
 	    $(function() {
 			$('#guess').click(function() {
 				val = $('#number').val();
-				
 				const ren = /^[0-9]+$/;
 				if (ren.test(val)) {
 					val = val % 14;
-			//		alert(val);
 					$.ajax('book_en.html').done(function(book) {				
 						$('#result').html(book);
-						const re = new RegExp("\\[ Гексаграмма "+(val));
+						const re = new RegExp("\\[ Hexagram "+(val));
 						var d = '';
 							var p = $('#result span').filter(function(){ 
 								return re.test($(this).text());
 							}).parent();
 							d += p.html();
-							//	alert(d);
 							while(1) {
-								
 								p = p.next();
-								//alert(p.html());
 								if(!p.html()) {
-									//alert('hoo');
 									break;
 								}
-								const re2 = new RegExp("\\[ Гексаграмма "+(val + 1));
+								const re2 = new RegExp("\\[ Hexagram "+(val + 1));
 								if( p.filter(function() { return re2.test($(this).text()) }).text()) {
-									//alert('foo');
 									break;
 								}
 								d += p.html()+'<br/>';
