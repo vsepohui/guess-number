@@ -20,7 +20,7 @@
  
     <script>
 	    $(function() {
-			$('#guess').click(function() {
+			function guess() {
 				val = $('#number').val();
 				
 				const ren = /^[0-9]+$/;
@@ -57,6 +57,16 @@
 				} else {
 					alert('Вы ввели не число!');
 				}
+			}
+			
+			$('.input').keypress(function (e) {
+				if (e.which == 13) {
+					guess();
+				}
+			});
+			
+			$('#guess').click(function() {
+				guess();
 			});
 		});
     </script>

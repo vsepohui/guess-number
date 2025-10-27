@@ -20,9 +20,8 @@
  
     <script>
 	    $(function() {
-	
-			$('#guess').click(function() {
-				val = $('#number').val();
+			function guess() {
+					val = $('#number').val();
 				const ren = /^[0-9]+$/;
 				if (ren.test(val)) {
 					val = val % 14;
@@ -52,6 +51,17 @@
 				} else {
 					alert('You are enter not a digit!');
 				}
+			}
+			
+	
+			$('.input').keypress(function (e) {
+				if (e.which == 13) {
+					guess();
+				}
+			});
+			
+			$('#guess').click(function() {
+				guess();
 			});
 		});
     </script>
