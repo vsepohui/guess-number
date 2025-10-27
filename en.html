@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="ru" class="h-100">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="Ivan Trunaev"/>
+    <title>Guess by a number</title>
+    <script src="js/color-modes.js"></script>
+    <link href="bootstrap.min.css" rel="stylesheet" />
+    <meta name="theme-color" content="#712cf9" />
+    <link href="cover.css" rel="stylesheet" />
+	<script src="js/jquery-3.7.1.min.js"></script>
+	<script src="js/bootstrap.bundle.min.js"></script>
+	
+	
+
+  </head>
+  <body class="d-flex h-100 text-center text-bg-dark">
+ 
+    <script>
+	    $(function() {
+			$('#guess').click(function() {
+				val = $('#number').val();
+				
+				const ren = /^[0-9]+$/;
+				if (ren.test(val)) {
+					val = val % 14;
+			//		alert(val);
+					$.ajax('book_en.html').done(function(book) {				
+						$('#result').html(book);
+						const re = new RegExp("\\[ Гексаграмма "+(val));
+						var d = '';
+							var p = $('#result span').filter(function(){ 
+								return re.test($(this).text());
+							}).parent();
+							d += p.html();
+							//	alert(d);
+							while(1) {
+								
+								p = p.next();
+								//alert(p.html());
+								if(!p.html()) {
+									//alert('hoo');
+									break;
+								}
+								const re2 = new RegExp("\\[ Гексаграмма "+(val + 1));
+								if( p.filter(function() { return re2.test($(this).text()) }).text()) {
+									//alert('foo');
+									break;
+								}
+								d += p.html()+'<br/>';
+							}
+							
+							$('#result').html(d);
+					});
+				} else {
+					alert('You are enter not a digit!');
+				}
+			});
+		});
+    </script>
+ 
+ 
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+      <header class="mb-auto">
+        <div>
+          <h3 class="float-md-start mb-0">Guess by a number</h3>
+          <nav class="nav nav-masthead justify-content-center float-md-end">
+        </div>
+      </header>
+      <main class="px-3">
+        <h1>Enter a digit</h1>
+        <p class="lead">
+          In may be a year of a born, phone number, passport number, sum on a bill.
+        </p>
+        <p class="lead">
+		  <div class="row">
+			  <div class="col-9">
+			<input type="text" class="form-control form-control-lg" id="number"/>
+			</div>
+			<div class="col-3">
+			<button id="guess" class="btn btn-lg btn-light fw-bold border-white bg-white">Guess</button>
+			</div>
+			<div>
+
+
+				<p id="result"></p>
+		</div>
+          </div>
+        </p>
+      </main>
+      <footer class="mt-auto text-white-50">
+        <p>
+          Author of idea <a href="https://trunaev.ru/" class="text-white">Ivan Trunaev</a>.
+        </p>
+      </footer>
+    </div>
+   
+
+  </body>
+</html>
