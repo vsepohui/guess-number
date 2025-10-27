@@ -26,11 +26,12 @@
 				const ren = /^[0-9]+$/;
 				if (ren.test(val)) {
 					val = val % 14;
+					alert(val);
 					$.ajax('book_en.html').done(function(book) {				
 						$('#result').html(book);
-						const re = new RegExp("\\[\s*Hexagram "+(val));
+						const re = new RegExp("\\[\s*Hexagram\s*"+(val));
 						var d = '';
-							var p = $('#result span font font').filter(function(){ 
+							var p = $('#result span').filter(function(){ 
 								return re.test($(this).text());
 							}).parent();
 							d += p.html();
@@ -39,7 +40,7 @@
 								if(!p.html()) {
 									break;
 								}
-								const re2 = new RegExp("\\[\s*Hexagram "+(val + 1));
+								const re2 = new RegExp("\\[\s*Hexagram\s*"+(val + 1));
 								if( p.filter(function() { return re2.test($(this).text()) }).text()) {
 									break;
 								}
