@@ -27,7 +27,7 @@
 					val = val % 14;
 					$.ajax('book_en.html').done(function(book) {				
 						$('#result').html(book);
-						const re = new RegExp("\\[ Hexagram "+(val));
+						const re = new RegExp("\\[\s*Hexagram "+(val));
 						var d = '';
 							var p = $('#result span').filter(function(){ 
 								return re.test($(this).text());
@@ -38,7 +38,7 @@
 								if(!p.html()) {
 									break;
 								}
-								const re2 = new RegExp("\\[ Hexagram "+(val + 1));
+								const re2 = new RegExp("\\[\s*Hexagram "+(val + 1));
 								if( p.filter(function() { return re2.test($(this).text()) }).text()) {
 									break;
 								}
